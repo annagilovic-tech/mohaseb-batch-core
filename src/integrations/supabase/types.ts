@@ -14,6 +14,80 @@ export type Database = {
   }
   public: {
     Tables: {
+      inventory_transactions: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          destination_location_id: number | null
+          inventory_detail_id: number | null
+          item_id: number
+          quantity: number
+          reference_id: number | null
+          reference_type: string | null
+          source_location_id: number | null
+          transaction_id: number
+          transaction_type: string
+          unit_cost: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          destination_location_id?: number | null
+          inventory_detail_id?: number | null
+          item_id: number
+          quantity: number
+          reference_id?: number | null
+          reference_type?: string | null
+          source_location_id?: number | null
+          transaction_id?: number
+          transaction_type: string
+          unit_cost?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          destination_location_id?: number | null
+          inventory_detail_id?: number | null
+          item_id?: number
+          quantity?: number
+          reference_id?: number | null
+          reference_type?: string | null
+          source_location_id?: number | null
+          transaction_id?: number
+          transaction_type?: string
+          unit_cost?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inventory_transactions_destination_location_id_fkey"
+            columns: ["destination_location_id"]
+            isOneToOne: false
+            referencedRelation: "the_storagelocations"
+            referencedColumns: ["locationid"]
+          },
+          {
+            foreignKeyName: "inventory_transactions_inventory_detail_id_fkey"
+            columns: ["inventory_detail_id"]
+            isOneToOne: false
+            referencedRelation: "inventorydetails"
+            referencedColumns: ["inventorydetailid"]
+          },
+          {
+            foreignKeyName: "inventory_transactions_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "the_items"
+            referencedColumns: ["itemid"]
+          },
+          {
+            foreignKeyName: "inventory_transactions_source_location_id_fkey"
+            columns: ["source_location_id"]
+            isOneToOne: false
+            referencedRelation: "the_storagelocations"
+            referencedColumns: ["locationid"]
+          },
+        ]
+      }
       inventorydetails: {
         Row: {
           barcode: string | null
