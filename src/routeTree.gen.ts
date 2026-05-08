@@ -16,6 +16,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminUnitsRouteImport } from './routes/admin.units'
 import { Route as AdminTransfersRouteImport } from './routes/admin.transfers'
 import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
+import { Route as AdminLedgerRouteImport } from './routes/admin.ledger'
 import { Route as AdminItemsRouteImport } from './routes/admin.items'
 import { Route as AdminBatchesRouteImport } from './routes/admin.batches'
 
@@ -54,6 +55,11 @@ const AdminLocationsRoute = AdminLocationsRouteImport.update({
   path: '/locations',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLedgerRoute = AdminLedgerRouteImport.update({
+  id: '/ledger',
+  path: '/ledger',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminItemsRoute = AdminItemsRouteImport.update({
   id: '/items',
   path: '/items',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/admin/batches': typeof AdminBatchesRoute
   '/admin/items': typeof AdminItemsRoute
+  '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/transfers': typeof AdminTransfersRoute
   '/admin/units': typeof AdminUnitsRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/admin/batches': typeof AdminBatchesRoute
   '/admin/items': typeof AdminItemsRoute
+  '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/transfers': typeof AdminTransfersRoute
   '/admin/units': typeof AdminUnitsRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/admin/batches': typeof AdminBatchesRoute
   '/admin/items': typeof AdminItemsRoute
+  '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/transfers': typeof AdminTransfersRoute
   '/admin/units': typeof AdminUnitsRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/admin/batches'
     | '/admin/items'
+    | '/admin/ledger'
     | '/admin/locations'
     | '/admin/transfers'
     | '/admin/units'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/admin/batches'
     | '/admin/items'
+    | '/admin/ledger'
     | '/admin/locations'
     | '/admin/transfers'
     | '/admin/units'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/admin/batches'
     | '/admin/items'
+    | '/admin/ledger'
     | '/admin/locations'
     | '/admin/transfers'
     | '/admin/units'
@@ -190,6 +202,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLocationsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/ledger': {
+      id: '/admin/ledger'
+      path: '/ledger'
+      fullPath: '/admin/ledger'
+      preLoaderRoute: typeof AdminLedgerRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/items': {
       id: '/admin/items'
       path: '/items'
@@ -210,6 +229,7 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminBatchesRoute: typeof AdminBatchesRoute
   AdminItemsRoute: typeof AdminItemsRoute
+  AdminLedgerRoute: typeof AdminLedgerRoute
   AdminLocationsRoute: typeof AdminLocationsRoute
   AdminTransfersRoute: typeof AdminTransfersRoute
   AdminUnitsRoute: typeof AdminUnitsRoute
@@ -219,6 +239,7 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBatchesRoute: AdminBatchesRoute,
   AdminItemsRoute: AdminItemsRoute,
+  AdminLedgerRoute: AdminLedgerRoute,
   AdminLocationsRoute: AdminLocationsRoute,
   AdminTransfersRoute: AdminTransfersRoute,
   AdminUnitsRoute: AdminUnitsRoute,
@@ -235,3 +256,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
