@@ -2,13 +2,14 @@ import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
-import { Boxes, Package, Layers, ArrowLeftRight, Ruler, MapPin, LogOut } from "lucide-react";
+import { Boxes, Package, Layers, ArrowLeftRight, Ruler, MapPin, LogOut, ScrollText } from "lucide-react";
 
 const nav = [
   { to: "/admin", label: "Inventory", icon: Boxes, exact: true },
   { to: "/admin/items", label: "Items", icon: Package },
   { to: "/admin/batches", label: "Batches", icon: Layers },
   { to: "/admin/transfers", label: "Transfers", icon: ArrowLeftRight },
+  { to: "/admin/ledger", label: "Ledger", icon: ScrollText },
   { to: "/admin/units", label: "Units", icon: Ruler },
   { to: "/admin/locations", label: "Locations", icon: MapPin },
 ];
