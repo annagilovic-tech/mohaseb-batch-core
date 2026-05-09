@@ -15,10 +15,18 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminUnitsRouteImport } from './routes/admin.units'
 import { Route as AdminTransfersRouteImport } from './routes/admin.transfers'
+import { Route as AdminSuppliersRouteImport } from './routes/admin.suppliers'
+import { Route as AdminSalesRouteImport } from './routes/admin.sales'
+import { Route as AdminPurchasesRouteImport } from './routes/admin.purchases'
+import { Route as AdminPaymentmethodsRouteImport } from './routes/admin.paymentmethods'
 import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
 import { Route as AdminLedgerRouteImport } from './routes/admin.ledger'
+import { Route as AdminJournalRouteImport } from './routes/admin.journal'
 import { Route as AdminItemsRouteImport } from './routes/admin.items'
+import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
+import { Route as AdminCashboxesRouteImport } from './routes/admin.cashboxes'
 import { Route as AdminBatchesRouteImport } from './routes/admin.batches'
+import { Route as AdminAccountsRouteImport } from './routes/admin.accounts'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -50,6 +58,26 @@ const AdminTransfersRoute = AdminTransfersRouteImport.update({
   path: '/transfers',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSuppliersRoute = AdminSuppliersRouteImport.update({
+  id: '/suppliers',
+  path: '/suppliers',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSalesRoute = AdminSalesRouteImport.update({
+  id: '/sales',
+  path: '/sales',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPurchasesRoute = AdminPurchasesRouteImport.update({
+  id: '/purchases',
+  path: '/purchases',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPaymentmethodsRoute = AdminPaymentmethodsRouteImport.update({
+  id: '/paymentmethods',
+  path: '/paymentmethods',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLocationsRoute = AdminLocationsRouteImport.update({
   id: '/locations',
   path: '/locations',
@@ -60,9 +88,24 @@ const AdminLedgerRoute = AdminLedgerRouteImport.update({
   path: '/ledger',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminJournalRoute = AdminJournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminItemsRoute = AdminItemsRouteImport.update({
   id: '/items',
   path: '/items',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCustomersRoute = AdminCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCashboxesRoute = AdminCashboxesRouteImport.update({
+  id: '/cashboxes',
+  path: '/cashboxes',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminBatchesRoute = AdminBatchesRouteImport.update({
@@ -70,15 +113,28 @@ const AdminBatchesRoute = AdminBatchesRouteImport.update({
   path: '/batches',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAccountsRoute = AdminAccountsRouteImport.update({
+  id: '/accounts',
+  path: '/accounts',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
+  '/admin/accounts': typeof AdminAccountsRoute
   '/admin/batches': typeof AdminBatchesRoute
+  '/admin/cashboxes': typeof AdminCashboxesRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/items': typeof AdminItemsRoute
+  '/admin/journal': typeof AdminJournalRoute
   '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/paymentmethods': typeof AdminPaymentmethodsRoute
+  '/admin/purchases': typeof AdminPurchasesRoute
+  '/admin/sales': typeof AdminSalesRoute
+  '/admin/suppliers': typeof AdminSuppliersRoute
   '/admin/transfers': typeof AdminTransfersRoute
   '/admin/units': typeof AdminUnitsRoute
   '/admin/': typeof AdminIndexRoute
@@ -86,10 +142,18 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/admin/accounts': typeof AdminAccountsRoute
   '/admin/batches': typeof AdminBatchesRoute
+  '/admin/cashboxes': typeof AdminCashboxesRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/items': typeof AdminItemsRoute
+  '/admin/journal': typeof AdminJournalRoute
   '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/paymentmethods': typeof AdminPaymentmethodsRoute
+  '/admin/purchases': typeof AdminPurchasesRoute
+  '/admin/sales': typeof AdminSalesRoute
+  '/admin/suppliers': typeof AdminSuppliersRoute
   '/admin/transfers': typeof AdminTransfersRoute
   '/admin/units': typeof AdminUnitsRoute
   '/admin': typeof AdminIndexRoute
@@ -99,10 +163,18 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
+  '/admin/accounts': typeof AdminAccountsRoute
   '/admin/batches': typeof AdminBatchesRoute
+  '/admin/cashboxes': typeof AdminCashboxesRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/items': typeof AdminItemsRoute
+  '/admin/journal': typeof AdminJournalRoute
   '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/paymentmethods': typeof AdminPaymentmethodsRoute
+  '/admin/purchases': typeof AdminPurchasesRoute
+  '/admin/sales': typeof AdminSalesRoute
+  '/admin/suppliers': typeof AdminSuppliersRoute
   '/admin/transfers': typeof AdminTransfersRoute
   '/admin/units': typeof AdminUnitsRoute
   '/admin/': typeof AdminIndexRoute
@@ -113,10 +185,18 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
+    | '/admin/accounts'
     | '/admin/batches'
+    | '/admin/cashboxes'
+    | '/admin/customers'
     | '/admin/items'
+    | '/admin/journal'
     | '/admin/ledger'
     | '/admin/locations'
+    | '/admin/paymentmethods'
+    | '/admin/purchases'
+    | '/admin/sales'
+    | '/admin/suppliers'
     | '/admin/transfers'
     | '/admin/units'
     | '/admin/'
@@ -124,10 +204,18 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/admin/accounts'
     | '/admin/batches'
+    | '/admin/cashboxes'
+    | '/admin/customers'
     | '/admin/items'
+    | '/admin/journal'
     | '/admin/ledger'
     | '/admin/locations'
+    | '/admin/paymentmethods'
+    | '/admin/purchases'
+    | '/admin/sales'
+    | '/admin/suppliers'
     | '/admin/transfers'
     | '/admin/units'
     | '/admin'
@@ -136,10 +224,18 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
+    | '/admin/accounts'
     | '/admin/batches'
+    | '/admin/cashboxes'
+    | '/admin/customers'
     | '/admin/items'
+    | '/admin/journal'
     | '/admin/ledger'
     | '/admin/locations'
+    | '/admin/paymentmethods'
+    | '/admin/purchases'
+    | '/admin/sales'
+    | '/admin/suppliers'
     | '/admin/transfers'
     | '/admin/units'
     | '/admin/'
@@ -195,6 +291,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTransfersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/suppliers': {
+      id: '/admin/suppliers'
+      path: '/suppliers'
+      fullPath: '/admin/suppliers'
+      preLoaderRoute: typeof AdminSuppliersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/sales': {
+      id: '/admin/sales'
+      path: '/sales'
+      fullPath: '/admin/sales'
+      preLoaderRoute: typeof AdminSalesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/purchases': {
+      id: '/admin/purchases'
+      path: '/purchases'
+      fullPath: '/admin/purchases'
+      preLoaderRoute: typeof AdminPurchasesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/paymentmethods': {
+      id: '/admin/paymentmethods'
+      path: '/paymentmethods'
+      fullPath: '/admin/paymentmethods'
+      preLoaderRoute: typeof AdminPaymentmethodsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/locations': {
       id: '/admin/locations'
       path: '/locations'
@@ -209,11 +333,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLedgerRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/journal': {
+      id: '/admin/journal'
+      path: '/journal'
+      fullPath: '/admin/journal'
+      preLoaderRoute: typeof AdminJournalRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/items': {
       id: '/admin/items'
       path: '/items'
       fullPath: '/admin/items'
       preLoaderRoute: typeof AdminItemsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/customers': {
+      id: '/admin/customers'
+      path: '/customers'
+      fullPath: '/admin/customers'
+      preLoaderRoute: typeof AdminCustomersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/cashboxes': {
+      id: '/admin/cashboxes'
+      path: '/cashboxes'
+      fullPath: '/admin/cashboxes'
+      preLoaderRoute: typeof AdminCashboxesRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/batches': {
@@ -223,24 +368,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBatchesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/accounts': {
+      id: '/admin/accounts'
+      path: '/accounts'
+      fullPath: '/admin/accounts'
+      preLoaderRoute: typeof AdminAccountsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAccountsRoute: typeof AdminAccountsRoute
   AdminBatchesRoute: typeof AdminBatchesRoute
+  AdminCashboxesRoute: typeof AdminCashboxesRoute
+  AdminCustomersRoute: typeof AdminCustomersRoute
   AdminItemsRoute: typeof AdminItemsRoute
+  AdminJournalRoute: typeof AdminJournalRoute
   AdminLedgerRoute: typeof AdminLedgerRoute
   AdminLocationsRoute: typeof AdminLocationsRoute
+  AdminPaymentmethodsRoute: typeof AdminPaymentmethodsRoute
+  AdminPurchasesRoute: typeof AdminPurchasesRoute
+  AdminSalesRoute: typeof AdminSalesRoute
+  AdminSuppliersRoute: typeof AdminSuppliersRoute
   AdminTransfersRoute: typeof AdminTransfersRoute
   AdminUnitsRoute: typeof AdminUnitsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAccountsRoute: AdminAccountsRoute,
   AdminBatchesRoute: AdminBatchesRoute,
+  AdminCashboxesRoute: AdminCashboxesRoute,
+  AdminCustomersRoute: AdminCustomersRoute,
   AdminItemsRoute: AdminItemsRoute,
+  AdminJournalRoute: AdminJournalRoute,
   AdminLedgerRoute: AdminLedgerRoute,
   AdminLocationsRoute: AdminLocationsRoute,
+  AdminPaymentmethodsRoute: AdminPaymentmethodsRoute,
+  AdminPurchasesRoute: AdminPurchasesRoute,
+  AdminSalesRoute: AdminSalesRoute,
+  AdminSuppliersRoute: AdminSuppliersRoute,
   AdminTransfersRoute: AdminTransfersRoute,
   AdminUnitsRoute: AdminUnitsRoute,
   AdminIndexRoute: AdminIndexRoute,
