@@ -148,6 +148,156 @@ export type Database = {
           },
         ]
       }
+      the_accounts: {
+        Row: {
+          accountcode: string
+          accountid: number
+          accountname: string
+          accountnamear: string | null
+          accounttype: string
+          allowposting: boolean
+          created_at: string
+          isactive: boolean
+          notes: string | null
+          parentaccountid: number | null
+          updated_at: string
+        }
+        Insert: {
+          accountcode: string
+          accountid?: number
+          accountname: string
+          accountnamear?: string | null
+          accounttype: string
+          allowposting?: boolean
+          created_at?: string
+          isactive?: boolean
+          notes?: string | null
+          parentaccountid?: number | null
+          updated_at?: string
+        }
+        Update: {
+          accountcode?: string
+          accountid?: number
+          accountname?: string
+          accountnamear?: string | null
+          accounttype?: string
+          allowposting?: boolean
+          created_at?: string
+          isactive?: boolean
+          notes?: string | null
+          parentaccountid?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_accounts_parentaccountid_fkey"
+            columns: ["parentaccountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+        ]
+      }
+      the_cashboxes: {
+        Row: {
+          accountid: number
+          cashboxcode: string
+          cashboxid: number
+          cashboxname: string
+          cashboxnamear: string | null
+          created_at: string
+          currency: string
+          isactive: boolean
+        }
+        Insert: {
+          accountid: number
+          cashboxcode: string
+          cashboxid?: number
+          cashboxname: string
+          cashboxnamear?: string | null
+          created_at?: string
+          currency?: string
+          isactive?: boolean
+        }
+        Update: {
+          accountid?: number
+          cashboxcode?: string
+          cashboxid?: number
+          cashboxname?: string
+          cashboxnamear?: string | null
+          created_at?: string
+          currency?: string
+          isactive?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_cashboxes_accountid_fkey"
+            columns: ["accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+        ]
+      }
+      the_customers: {
+        Row: {
+          address: string | null
+          created_at: string
+          creditlimit: number
+          customercode: string
+          customerid: number
+          customername: string
+          customernamear: string | null
+          email: string | null
+          isactive: boolean
+          notes: string | null
+          phone: string | null
+          receivable_accountid: number | null
+          taxnumber: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          creditlimit?: number
+          customercode: string
+          customerid?: number
+          customername: string
+          customernamear?: string | null
+          email?: string | null
+          isactive?: boolean
+          notes?: string | null
+          phone?: string | null
+          receivable_accountid?: number | null
+          taxnumber?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          creditlimit?: number
+          customercode?: string
+          customerid?: number
+          customername?: string
+          customernamear?: string | null
+          email?: string | null
+          isactive?: boolean
+          notes?: string | null
+          phone?: string | null
+          receivable_accountid?: number | null
+          taxnumber?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_customers_receivable_accountid_fkey"
+            columns: ["receivable_accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+        ]
+      }
       the_itemdetails: {
         Row: {
           barcode: string | null
@@ -258,6 +408,392 @@ export type Database = {
           },
         ]
       }
+      the_journalentries: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          entrydate: string
+          entryid: number
+          entrynumber: string
+          notes: string | null
+          postedat: string | null
+          reference_id: number | null
+          reference_type: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          entrydate?: string
+          entryid?: number
+          entrynumber: string
+          notes?: string | null
+          postedat?: string | null
+          reference_id?: number | null
+          reference_type?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          entrydate?: string
+          entryid?: number
+          entrynumber?: string
+          notes?: string | null
+          postedat?: string | null
+          reference_id?: number | null
+          reference_type?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      the_journalentrylines: {
+        Row: {
+          accountid: number
+          credit: number
+          debit: number
+          entryid: number
+          lineid: number
+          notes: string | null
+        }
+        Insert: {
+          accountid: number
+          credit?: number
+          debit?: number
+          entryid: number
+          lineid?: number
+          notes?: string | null
+        }
+        Update: {
+          accountid?: number
+          credit?: number
+          debit?: number
+          entryid?: number
+          lineid?: number
+          notes?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_journalentrylines_accountid_fkey"
+            columns: ["accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+          {
+            foreignKeyName: "the_journalentrylines_entryid_fkey"
+            columns: ["entryid"]
+            isOneToOne: false
+            referencedRelation: "the_journalentries"
+            referencedColumns: ["entryid"]
+          },
+        ]
+      }
+      the_paymentmethods: {
+        Row: {
+          accountid: number
+          created_at: string
+          isactive: boolean
+          methodcode: string
+          methodname: string
+          methodnamear: string | null
+          paymentmethodid: number
+        }
+        Insert: {
+          accountid: number
+          created_at?: string
+          isactive?: boolean
+          methodcode: string
+          methodname: string
+          methodnamear?: string | null
+          paymentmethodid?: number
+        }
+        Update: {
+          accountid?: number
+          created_at?: string
+          isactive?: boolean
+          methodcode?: string
+          methodname?: string
+          methodnamear?: string | null
+          paymentmethodid?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_paymentmethods_accountid_fkey"
+            columns: ["accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+        ]
+      }
+      the_purchaseinvoice: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          destinationlocationid: number
+          inventory_accountid: number
+          invoicedate: string
+          invoiceid: number
+          invoicenumber: string
+          notes: string | null
+          payable_accountid: number
+          postedat: string | null
+          status: string
+          supplierid: number
+          totalamount: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          destinationlocationid: number
+          inventory_accountid: number
+          invoicedate?: string
+          invoiceid?: number
+          invoicenumber: string
+          notes?: string | null
+          payable_accountid: number
+          postedat?: string | null
+          status?: string
+          supplierid: number
+          totalamount?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          destinationlocationid?: number
+          inventory_accountid?: number
+          invoicedate?: string
+          invoiceid?: number
+          invoicenumber?: string
+          notes?: string | null
+          payable_accountid?: number
+          postedat?: string | null
+          status?: string
+          supplierid?: number
+          totalamount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_purchaseinvoice_destinationlocationid_fkey"
+            columns: ["destinationlocationid"]
+            isOneToOne: false
+            referencedRelation: "the_storagelocations"
+            referencedColumns: ["locationid"]
+          },
+          {
+            foreignKeyName: "the_purchaseinvoice_inventory_accountid_fkey"
+            columns: ["inventory_accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+          {
+            foreignKeyName: "the_purchaseinvoice_payable_accountid_fkey"
+            columns: ["payable_accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+          {
+            foreignKeyName: "the_purchaseinvoice_supplierid_fkey"
+            columns: ["supplierid"]
+            isOneToOne: false
+            referencedRelation: "the_suppliers"
+            referencedColumns: ["supplierid"]
+          },
+        ]
+      }
+      the_purchaseinvoicedetails: {
+        Row: {
+          barcode: string | null
+          batchnumber: string
+          costprice: number
+          expirydate: string
+          invoicedetailid: number
+          invoiceid: number
+          itemid: number
+          quantity: number
+        }
+        Insert: {
+          barcode?: string | null
+          batchnumber: string
+          costprice: number
+          expirydate: string
+          invoicedetailid?: number
+          invoiceid: number
+          itemid: number
+          quantity: number
+        }
+        Update: {
+          barcode?: string | null
+          batchnumber?: string
+          costprice?: number
+          expirydate?: string
+          invoicedetailid?: number
+          invoiceid?: number
+          itemid?: number
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_purchaseinvoicedetails_invoiceid_fkey"
+            columns: ["invoiceid"]
+            isOneToOne: false
+            referencedRelation: "the_purchaseinvoice"
+            referencedColumns: ["invoiceid"]
+          },
+          {
+            foreignKeyName: "the_purchaseinvoicedetails_itemid_fkey"
+            columns: ["itemid"]
+            isOneToOne: false
+            referencedRelation: "the_items"
+            referencedColumns: ["itemid"]
+          },
+        ]
+      }
+      the_salesinvoice: {
+        Row: {
+          cogs_accountid: number
+          created_at: string
+          created_by: string | null
+          customerid: number
+          inventory_accountid: number
+          invoicedate: string
+          invoiceid: number
+          invoicenumber: string
+          notes: string | null
+          postedat: string | null
+          receivable_accountid: number
+          revenue_accountid: number
+          sourcelocationid: number
+          status: string
+          totalamount: number
+          totalcogs: number
+        }
+        Insert: {
+          cogs_accountid: number
+          created_at?: string
+          created_by?: string | null
+          customerid: number
+          inventory_accountid: number
+          invoicedate?: string
+          invoiceid?: number
+          invoicenumber: string
+          notes?: string | null
+          postedat?: string | null
+          receivable_accountid: number
+          revenue_accountid: number
+          sourcelocationid: number
+          status?: string
+          totalamount?: number
+          totalcogs?: number
+        }
+        Update: {
+          cogs_accountid?: number
+          created_at?: string
+          created_by?: string | null
+          customerid?: number
+          inventory_accountid?: number
+          invoicedate?: string
+          invoiceid?: number
+          invoicenumber?: string
+          notes?: string | null
+          postedat?: string | null
+          receivable_accountid?: number
+          revenue_accountid?: number
+          sourcelocationid?: number
+          status?: string
+          totalamount?: number
+          totalcogs?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_salesinvoice_cogs_accountid_fkey"
+            columns: ["cogs_accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+          {
+            foreignKeyName: "the_salesinvoice_customerid_fkey"
+            columns: ["customerid"]
+            isOneToOne: false
+            referencedRelation: "the_customers"
+            referencedColumns: ["customerid"]
+          },
+          {
+            foreignKeyName: "the_salesinvoice_inventory_accountid_fkey"
+            columns: ["inventory_accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+          {
+            foreignKeyName: "the_salesinvoice_receivable_accountid_fkey"
+            columns: ["receivable_accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+          {
+            foreignKeyName: "the_salesinvoice_revenue_accountid_fkey"
+            columns: ["revenue_accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+          {
+            foreignKeyName: "the_salesinvoice_sourcelocationid_fkey"
+            columns: ["sourcelocationid"]
+            isOneToOne: false
+            referencedRelation: "the_storagelocations"
+            referencedColumns: ["locationid"]
+          },
+        ]
+      }
+      the_salesinvoicedetails: {
+        Row: {
+          costprice: number
+          invoicedetailid: number
+          invoiceid: number
+          itemid: number
+          quantity: number
+          saleprice: number
+        }
+        Insert: {
+          costprice?: number
+          invoicedetailid?: number
+          invoiceid: number
+          itemid: number
+          quantity: number
+          saleprice: number
+        }
+        Update: {
+          costprice?: number
+          invoicedetailid?: number
+          invoiceid?: number
+          itemid?: number
+          quantity?: number
+          saleprice?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_salesinvoicedetails_invoiceid_fkey"
+            columns: ["invoiceid"]
+            isOneToOne: false
+            referencedRelation: "the_salesinvoice"
+            referencedColumns: ["invoiceid"]
+          },
+          {
+            foreignKeyName: "the_salesinvoicedetails_itemid_fkey"
+            columns: ["itemid"]
+            isOneToOne: false
+            referencedRelation: "the_items"
+            referencedColumns: ["itemid"]
+          },
+        ]
+      }
       the_storagelocations: {
         Row: {
           created_at: string
@@ -284,6 +820,62 @@ export type Database = {
           locationnamear?: string | null
         }
         Relationships: []
+      }
+      the_suppliers: {
+        Row: {
+          address: string | null
+          created_at: string
+          email: string | null
+          isactive: boolean
+          notes: string | null
+          payable_accountid: number | null
+          phone: string | null
+          suppliercode: string
+          supplierid: number
+          suppliername: string
+          suppliernamear: string | null
+          taxnumber: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          email?: string | null
+          isactive?: boolean
+          notes?: string | null
+          payable_accountid?: number | null
+          phone?: string | null
+          suppliercode: string
+          supplierid?: number
+          suppliername: string
+          suppliernamear?: string | null
+          taxnumber?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          email?: string | null
+          isactive?: boolean
+          notes?: string | null
+          payable_accountid?: number | null
+          phone?: string | null
+          suppliercode?: string
+          supplierid?: number
+          suppliername?: string
+          suppliernamear?: string | null
+          taxnumber?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "the_suppliers_payable_accountid_fkey"
+            columns: ["payable_accountid"]
+            isOneToOne: false
+            referencedRelation: "the_accounts"
+            referencedColumns: ["accountid"]
+          },
+        ]
       }
       the_transfer: {
         Row: {
@@ -451,6 +1043,12 @@ export type Database = {
         }
         Returns: boolean
       }
+      post_journal_entry: { Args: { _entry_id: number }; Returns: undefined }
+      post_purchase_invoice: {
+        Args: { _invoice_id: number }
+        Returns: undefined
+      }
+      post_sales_invoice: { Args: { _invoice_id: number }; Returns: undefined }
       post_transfer: { Args: { _transfer_id: number }; Returns: undefined }
     }
     Enums: {

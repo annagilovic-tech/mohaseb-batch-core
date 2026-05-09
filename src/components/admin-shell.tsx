@@ -2,14 +2,23 @@ import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
-import { Boxes, Package, Layers, ArrowLeftRight, Ruler, MapPin, LogOut, ScrollText } from "lucide-react";
+import { Boxes, Package, Layers, ArrowLeftRight, Ruler, MapPin, LogOut, ScrollText,
+  BookOpen, BookText, Users, Truck, Wallet, CreditCard, ShoppingCart, Receipt } from "lucide-react";
 
 const nav = [
   { to: "/admin", label: "Inventory", icon: Boxes, exact: true },
   { to: "/admin/items", label: "Items", icon: Package },
   { to: "/admin/batches", label: "Batches", icon: Layers },
   { to: "/admin/transfers", label: "Transfers", icon: ArrowLeftRight },
-  { to: "/admin/ledger", label: "Ledger", icon: ScrollText },
+  { to: "/admin/ledger", label: "Stock ledger", icon: ScrollText },
+  { to: "/admin/accounts", label: "Accounts", icon: BookOpen },
+  { to: "/admin/journal", label: "Journal", icon: BookText },
+  { to: "/admin/purchases", label: "Purchases", icon: ShoppingCart },
+  { to: "/admin/sales", label: "Sales", icon: Receipt },
+  { to: "/admin/customers", label: "Customers", icon: Users },
+  { to: "/admin/suppliers", label: "Suppliers", icon: Truck },
+  { to: "/admin/cashboxes", label: "Cashboxes", icon: Wallet },
+  { to: "/admin/paymentmethods", label: "Payment methods", icon: CreditCard },
   { to: "/admin/units", label: "Units", icon: Ruler },
   { to: "/admin/locations", label: "Locations", icon: MapPin },
 ];
