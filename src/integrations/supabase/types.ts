@@ -614,6 +614,7 @@ export type Database = {
           invoiceid: number
           itemid: number
           quantity: number
+          saleprice: number
         }
         Insert: {
           barcode?: string | null
@@ -624,6 +625,7 @@ export type Database = {
           invoiceid: number
           itemid: number
           quantity: number
+          saleprice?: number
         }
         Update: {
           barcode?: string | null
@@ -634,6 +636,7 @@ export type Database = {
           invoiceid?: number
           itemid?: number
           quantity?: number
+          saleprice?: number
         }
         Relationships: [
           {
@@ -657,7 +660,7 @@ export type Database = {
           cogs_accountid: number
           created_at: string
           created_by: string | null
-          customerid: number
+          customerid: number | null
           inventory_accountid: number
           invoicedate: string
           invoiceid: number
@@ -675,7 +678,7 @@ export type Database = {
           cogs_accountid: number
           created_at?: string
           created_by?: string | null
-          customerid: number
+          customerid?: number | null
           inventory_accountid: number
           invoicedate?: string
           invoiceid?: number
@@ -693,7 +696,7 @@ export type Database = {
           cogs_accountid?: number
           created_at?: string
           created_by?: string | null
-          customerid?: number
+          customerid?: number | null
           inventory_accountid?: number
           invoicedate?: string
           invoiceid?: number

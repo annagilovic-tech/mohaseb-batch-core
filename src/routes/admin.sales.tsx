@@ -7,7 +7,7 @@ import { fmtMoney, fmtDate } from "@/lib/format";
 export const Route = createFileRoute("/admin/sales")({ component: SalesPage });
 
 type Inv = {
-  invoiceid: number; invoicenumber: string; invoicedate: string; customerid: number;
+  invoiceid: number; invoicenumber: string; invoicedate: string; customerid: number | null;
   sourcelocationid: number; revenue_accountid: number; receivable_accountid: number;
   inventory_accountid: number; cogs_accountid: number;
   totalamount: number; totalcogs: number; status: string; postedat: string | null;
@@ -51,7 +51,7 @@ function SalesPage() {
   }, []);
 
   async function newInv() {
-    if (!customers.length || !locs.length) return toast.error("Create customer + location first");
+    if (!locs.length) return toast.error("Create a location first");
     const rev = accounts.find(a => a.accounttype === "revenue");
     const ar = accounts.find(a => a.accounttype === "asset");
     const inv = accounts.find(a => a.accounttype === "asset");
@@ -59,9 +59,9 @@ function SalesPage() {
     if (!rev || !ar || !inv || !cogs) return toast.error("Need revenue, asset, expense accounts");
     const num = prompt("Invoice number:", `SI-${Date.now()}`); if (!num) return;
     const { data, error } = await (supabase as any).from("the_salesinvoice").insert({
-      invoicenumber: num, customerid: customers[0].customerid, sourcelocationid: locs[0].locationid,
+      invoicenumber: num, customerid: null, sourcelocationid: locs[0].locationid,
       revenue_accountid: rev.accountid, inventory_accountid: inv.accountid, cogs_accountid: cogs.accountid,
-      receivable_accountid: customers[0].receivable_accountid ?? ar.accountid,
+      receivable_accountid: ar.accountid,
     }).select().single();
     if (error) return toast.error(error.message);
     await loadInvs(); setSel(data); setDetails([]);
@@ -126,10 +126,11 @@ function SalesPage() {
         {sel ? (
           <>
             <div className="grid grid-cols-3 gap-2 rounded border border-border p-2 text-xs">
-              <label>Customer
-                <select disabled={sel.status!=="draft"} value={sel.customerid}
-                  onChange={e=>updateInv({customerid:Number(e.target.value)})}
+              <label>Customer <span className="text-muted-foreground">(optional · walk-in if empty)</span>
+                <select disabled={sel.status!=="draft"} value={sel.customerid ?? ""}
+                  onChange={e=>updateInv({customerid: e.target.value ? Number(e.target.value) : null})}
                   className="block w-full bg-background border border-border rounded px-1 py-0.5">
+                  <option value="">— Walk-in (cash) —</option>
                   {customers.map(c=><option key={c.customerid} value={c.customerid}>{c.customercode} {c.customername}</option>)}
                 </select>
               </label>

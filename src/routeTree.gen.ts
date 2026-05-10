@@ -18,6 +18,7 @@ import { Route as AdminTransfersRouteImport } from './routes/admin.transfers'
 import { Route as AdminSuppliersRouteImport } from './routes/admin.suppliers'
 import { Route as AdminSalesRouteImport } from './routes/admin.sales'
 import { Route as AdminPurchasesRouteImport } from './routes/admin.purchases'
+import { Route as AdminPosRouteImport } from './routes/admin.pos'
 import { Route as AdminPaymentmethodsRouteImport } from './routes/admin.paymentmethods'
 import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
 import { Route as AdminLedgerRouteImport } from './routes/admin.ledger'
@@ -71,6 +72,11 @@ const AdminSalesRoute = AdminSalesRouteImport.update({
 const AdminPurchasesRoute = AdminPurchasesRouteImport.update({
   id: '/purchases',
   path: '/purchases',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPosRoute = AdminPosRouteImport.update({
+  id: '/pos',
+  path: '/pos',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminPaymentmethodsRoute = AdminPaymentmethodsRouteImport.update({
@@ -132,6 +138,7 @@ export interface FileRoutesByFullPath {
   '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/paymentmethods': typeof AdminPaymentmethodsRoute
+  '/admin/pos': typeof AdminPosRoute
   '/admin/purchases': typeof AdminPurchasesRoute
   '/admin/sales': typeof AdminSalesRoute
   '/admin/suppliers': typeof AdminSuppliersRoute
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/paymentmethods': typeof AdminPaymentmethodsRoute
+  '/admin/pos': typeof AdminPosRoute
   '/admin/purchases': typeof AdminPurchasesRoute
   '/admin/sales': typeof AdminSalesRoute
   '/admin/suppliers': typeof AdminSuppliersRoute
@@ -172,6 +180,7 @@ export interface FileRoutesById {
   '/admin/ledger': typeof AdminLedgerRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/paymentmethods': typeof AdminPaymentmethodsRoute
+  '/admin/pos': typeof AdminPosRoute
   '/admin/purchases': typeof AdminPurchasesRoute
   '/admin/sales': typeof AdminSalesRoute
   '/admin/suppliers': typeof AdminSuppliersRoute
@@ -194,6 +203,7 @@ export interface FileRouteTypes {
     | '/admin/ledger'
     | '/admin/locations'
     | '/admin/paymentmethods'
+    | '/admin/pos'
     | '/admin/purchases'
     | '/admin/sales'
     | '/admin/suppliers'
@@ -213,6 +223,7 @@ export interface FileRouteTypes {
     | '/admin/ledger'
     | '/admin/locations'
     | '/admin/paymentmethods'
+    | '/admin/pos'
     | '/admin/purchases'
     | '/admin/sales'
     | '/admin/suppliers'
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '/admin/ledger'
     | '/admin/locations'
     | '/admin/paymentmethods'
+    | '/admin/pos'
     | '/admin/purchases'
     | '/admin/sales'
     | '/admin/suppliers'
@@ -312,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPurchasesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/pos': {
+      id: '/admin/pos'
+      path: '/pos'
+      fullPath: '/admin/pos'
+      preLoaderRoute: typeof AdminPosRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/paymentmethods': {
       id: '/admin/paymentmethods'
       path: '/paymentmethods'
@@ -388,6 +407,7 @@ interface AdminRouteChildren {
   AdminLedgerRoute: typeof AdminLedgerRoute
   AdminLocationsRoute: typeof AdminLocationsRoute
   AdminPaymentmethodsRoute: typeof AdminPaymentmethodsRoute
+  AdminPosRoute: typeof AdminPosRoute
   AdminPurchasesRoute: typeof AdminPurchasesRoute
   AdminSalesRoute: typeof AdminSalesRoute
   AdminSuppliersRoute: typeof AdminSuppliersRoute
@@ -406,6 +426,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLedgerRoute: AdminLedgerRoute,
   AdminLocationsRoute: AdminLocationsRoute,
   AdminPaymentmethodsRoute: AdminPaymentmethodsRoute,
+  AdminPosRoute: AdminPosRoute,
   AdminPurchasesRoute: AdminPurchasesRoute,
   AdminSalesRoute: AdminSalesRoute,
   AdminSuppliersRoute: AdminSuppliersRoute,
