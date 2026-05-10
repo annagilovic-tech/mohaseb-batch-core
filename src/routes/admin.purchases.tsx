@@ -12,7 +12,7 @@ type Inv = {
   totalamount: number; status: string; postedat: string | null; notes: string | null;
 };
 type Detail = { invoicedetailid?: number; invoiceid?: number; itemid: number; batchnumber: string;
-  barcode: string | null; expirydate: string; quantity: number; costprice: number };
+  barcode: string | null; expirydate: string; quantity: number; costprice: number; saleprice: number };
 type Item = { itemid: number; itemcode: string; itemname: string };
 type Loc = { locationid: number; locationcode: string; locationname: string };
 type Supplier = { supplierid: number; suppliercode: string; suppliername: string; payable_accountid: number | null };
@@ -73,7 +73,7 @@ function PurchasesPage() {
     const { error } = await (supabase as any).from("the_purchaseinvoicedetails").insert({
       invoiceid: sel.invoiceid, itemid: items[0].itemid, batchnumber: "B" + Date.now(),
       expirydate: new Date(Date.now() + 365*86400000).toISOString().slice(0,10),
-      quantity: 1, costprice: 0,
+      quantity: 1, costprice: 0, saleprice: 0,
     });
     if (error) return toast.error(error.message);
     loadDetails(sel.invoiceid);
@@ -174,6 +174,7 @@ function PurchasesPage() {
                     <th className="px-2 py-1 w-32">Expiry</th>
                     <th className="px-2 py-1 w-24 text-right">Qty</th>
                     <th className="px-2 py-1 w-28 text-right">Cost</th>
+                    <th className="px-2 py-1 w-28 text-right">Sale</th>
                     <th className="px-2 py-1 w-28 text-right">Total</th>
                     <th className="w-8"></th>
                   </tr>
@@ -198,6 +199,8 @@ function PurchasesPage() {
                         onBlur={e=>updLine(d,{quantity:Number(e.target.value)})} className="w-full bg-transparent text-right outline-none"/></td>
                       <td className="px-2 py-0.5"><input type="number" step="0.0001" defaultValue={d.costprice} disabled={sel.status!=="draft"}
                         onBlur={e=>updLine(d,{costprice:Number(e.target.value)})} className="w-full bg-transparent text-right outline-none"/></td>
+                      <td className="px-2 py-0.5"><input type="number" step="0.0001" defaultValue={d.saleprice} disabled={sel.status!=="draft"}
+                        onBlur={e=>updLine(d,{saleprice:Number(e.target.value)})} className="w-full bg-transparent text-right outline-none"/></td>
                       <td className="px-2 py-0.5 text-right">{fmtMoney(Number(d.quantity)*Number(d.costprice))}</td>
                       <td className="text-center">{sel.status==="draft" && <button onClick={()=>delLine(d)} className="text-destructive">×</button>}</td>
                     </tr>
